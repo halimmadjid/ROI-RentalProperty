@@ -7,7 +7,7 @@ class rentalIncome:
     def rental_expenses(self):
         '''Collect all expenses for the rental property and place them into a dictionary. The keys will be what the expense is and the values will be the amount to be paid in integer'''
         #take in all inputs and place into expesnes dictionary 
-        dict = self.expenses
+        self.expenses
         
         while True:
             try: 
@@ -55,17 +55,18 @@ class rentalIncome:
 
         #assing it to a variable and not key. assing variable to keys later. se #if/else on each item to account fo stirng N and Quit) 
 
-        dict[hoa] = hoa_dues
-        dict[tax] = property_taxes
-        dict[mortgage] = mortgage_payment
-        dict[utility] = monthly_utilities
-        dict[misc] = monthly_misc
-        total_expenses_entered = sum(dict.values())
+        self.expenses[hoa] = hoa_dues
+        self.expenses[tax] = property_taxes
+        self.expenses[mortgage] = mortgage_payment
+        self.expenses[utility] = monthly_utilities
+        self.expenses[misc] = monthly_misc
+        self.total_expenses_entered = sum(self.expenses.values())
+        
 
         
         #try/except on each one so that they dont repeat entering the whole thing
     def initial_investment(self): 
-        dict1 = self.investment
+        self.investment
         
         while True:
             try: 
@@ -91,17 +92,17 @@ class rentalIncome:
             except: 
                 print("Not a valid response. Provide an integer value.")
                 continue
-        dict1[payment_amount] = deposit
-        dict1[c_cost] = c_costb
-        dict1[rent] = rental_value
+        self.investment[payment_amount] = deposit
+        self.investment[c_cost] = c_costb
+        self.investment[rent] = rental_value
 
-        total_initial_cost = sum(dict1.values())
+        self.total_initial_cost = sum(self.investment.values())
 
     def roi(self):
 
-        annual_return = (((dict1[rent] + dict[hoa])*12) + (total_expenses_entered - (dict1[rental_value] + dict[hoa])))
+        annual_return = (((self.investment['Estmated Monthly Rent'] + self.expenses['HOA Dues']) * 12) + (self.total_expenses_entered - (self.investment['Estmated Monthly Rent'] + self.expenses['HOA Dues'])))
         
-        paid_investment = ((dict1[payment_amount] * 12)+(total_initial_cost - (dict1[rent])))
+        paid_investment = ((self.investment["Initial Paid Amount"] * 12)+(self.total_initial_cost - (self.investment['Estmated Monthly Rent'])))
 
         roi_shown = ((annual_return % paid_investment) * 100) 
 
@@ -111,10 +112,13 @@ class rentalIncome:
 
 while True:
     action = input("Hi! So you're thinking of buying a rental home?\nAnd, you wanna know if there'll be a return on your investment?\n Yes/No: ")
-    if action.lower() == 'no' or 'n':
+    if action.lower() == 'no' or action.lower() == 'n':
         print("GoodBye")
-    elif action.lower() == 'yes' or 'y': 
-        rentalIncome()
+    elif action.lower() == 'yes' or action.lower() == 'y': 
+        my_calc = rentalIncome()
+        my_calc.rental_expenses()
+        my_calc.initial_investment()
+        my_calc.roi()
         break
     else: 
         print('Not a valid entry. Please enter "Y" or "N" to continue: ')  
